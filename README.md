@@ -1,7 +1,7 @@
 # SistemiDinamici
 Repository dedicata all'esame di sistemi dinamici
 
-## Programma del corso
+## Diario del corso
 
 ## Lezione 1, 3 ore, 11-14, 26 set 2023.
 
