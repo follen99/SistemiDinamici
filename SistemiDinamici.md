@@ -1,9 +1,21 @@
 # SistemiDinamici
 Repository dedicata all'esame di sistemi dinamici
 
+## Cosa inserire nel progetto
+
+- Primo lucido: il modello
+
+- Secondo lucido: Risposta impulsiva
+
+  - Facciamo vedere i singoli modi:
+
+  1. funzione di trasferimento
+  2. scomposizione in fratti semplici con residue()
+  3. 
+
 ## MATLAB - codice utile
 
-## Definire una matrice
+### Definire una matrice
 
 ```matlab
 >> test = [1,1;2,2]
