@@ -184,7 +184,7 @@ s = stepinfo(sys)
 
 ![image-20231202195912796](assets/image-20231202195912796.png)
 
-## Visualizzare due diverse risposte 
+### Visualizzare due diverse risposte 
 
 File di riferimento: `ES5_5_onRoids.m`
 
@@ -260,9 +260,64 @@ xlabel('Gradino unitario.')
 
 ![image-20231203152037064](assets/image-20231203152037064.png)
 
-## Chicche
+### Diagrammi di Bode
 
-### DrawLabel
+#### Comando logspace
+
+```matlab
+w = logspace(lower, upper, n);
+```
+
+il comando genera n punti equidistanti tra 10<sup>lower</sup> e 10<sup>upper</sup>
+
+#### Comando bode()
+
+```matlab
+[mag, phase, w] = bode(sys1, w);
+```
+
+##### Argomenti di output
+
+- ***mag*** - moduli
+- ***phase*** - fasi
+- ***w*** - pulsazioni 
+
+##### Argomenti di input
+
+- ***sys1*** - il sistema creato con `tf()`
+- ***w*** - le pulsazioni create con `w = logspace(lower, upper)`
+
+**Attenzione!** Il modulo fornito in output non è in decibel, ma può esservi convertito usando la funzione: `20*log10(mag)`.
+
+![image-20231215143117460](assets/image-20231215143117460.png)
+
+> Per questo output vedi il codice `BodePlot_auto_bounds`
+
+Non possiamo usare "mag" così com'è perchè è un'array tridimensionale, dobbiamo quindi convertirlo in un array bidimensionale:
+
+```matlab
+n = length(w);                      
+mod2d(1:n) = 20*log10(mag(1,1,:));  % converto in un array bidimensionale e ne calcolo il valore in decibel.
+phase2d(1:n) = phase(1,1,:);          % della fase non mi serve il valore in dB.
+
+semilogx(w, mod2d);                 % posso finalmente fare il plot dei moduli
+```
+
+
+
+### Tracciare uscita a Steady State di una sinusoide
+
+Ci basta sfruttare il fatto che la trasformata di Laplace del segnale impulso (nel dominio del tempo) è uguale ad 1 nel dominio di laplace:
+
+Per un sistema caratterizzato dalla funzione di trasferimento *G(s)*, avente come input *u(t)* e come output *y(t)*, allora possiamo scrivere:
+$$
+Y(s) = G(s) \cdot R(s)
+$$
+
+
+### Chicche
+
+#### DrawLabel
 
 Questa funzione permette di scrivere un label in corrispondenza di una curva e di farlo ad un determinato offset.
 
