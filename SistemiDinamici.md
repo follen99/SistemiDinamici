@@ -28,7 +28,7 @@ test =
 
 
 
-### Definire un polinomio
+### Definire un polinomio (1)
 
 Possiamo definire un polinomio andando a rappresentarlo tramite un vettore che riporta i **coefficienti** a partire dal grado massimo (da sinistra a destra); ad esempio possiamo scrivere
 
@@ -40,6 +40,35 @@ printsys(num, den);		% stampo la frazione di polinomi
 ```
 
 ![image-20231202155459463](assets/image-20231202155459463.png)
+
+### Definire un polinomio (2)
+
+Possiamo anche procedere, più intuitivamente, in questo modo:
+
+```matlab
+s = tf('s');
+G = Kt/((s*l+r)*(j*s+b)+Kt*Kv);
+```
+
+![image-20231226154527511](assets/image-20231226154527511.png)
+
+### Visualizzare i poli e gli zeri sul piano complesso
+
+Per visualizzare i poli e gli zeri sul piano complesso ci basta usare il comando `pzmap()` sulla funzione di trasferimento:
+
+```
+num = [0 1];
+den = [1 0];
+G = tf(num, den)
+
+pzmap(G);
+```
+
+![image-20231222103623857](assets/image-20231222103623857.png)
+
+> In questo caso abbiamo un unico polo nell'origine perchè G = 1/s.
+
+
 
 ### Dalla funzione di trasferimento alla rappresentazione nello spazio di stato
 
@@ -305,14 +334,136 @@ semilogx(w, mod2d);                 % posso finalmente fare il plot dei moduli
 
 
 
+### Calcolare la risposta ad un segnale "custom"
+
+possiamo trovare la risposta ad un input custom (che decidiamo noi) andando a sfruttare il fatto che la trasformata dell'impulso è 1, quindi possiamo moltiplicare nel dominio di Laplace le due trasformate (G e U) per poi fare "l'antitrasfromata" tramite il comando `impulse()`.
+
+1. La prima cosa da fare sarà quella di definire la funzione di trasferimento associata al sistema. 
+2. Successivamente dobbiamo decidere il segnale "custom" con cui vogliamo sollecitare il sistema e **trasformarlo** nel dominio di laplace. Dobbiamo inoltre portare il segnare U(S) in una forma che Matlab possa comprendere, ovvero in *potenze decrescenti di s*.
+3. Fatto questo andiamo a definire un nuovo segnale U, come se fosse una seconda funzione di trasferimento (infatti usiamo proprio il comando tf()).
+4. A questo punto possiamo moltiplicare G(s) * U(s) per ottenere la risposta Y(s).
+5. Possiamo quindi trovare l'antitrasformata con il comando impulse(Y(s)).
+
+```matlab
+% possiamo trovare la risposta ad un input custom (che decidiamo noi)
+% andando a sfruttare il fatto che la trasformata dell'impulso è 1, quindi
+% possiamo moltiplicare nel dominio di laplace le due trasformate (G e U)
+% per poi fare "l'anti trasfromata" tramite il comando impulse()
+clear; close all; clc
+
+% num e den rappresentano in questo caso la trasformata di un integratore
+% 1/S
+
+num = [0 1];
+den = [1 0];
+
+G = tf(num, den)
+
+% definisco il segnale custom, ad esempio un gradino di ampiezza 2
+s = tf('s');    % assegno alla variabile s il compito di variabile di laplace s in modo da scrivere più semplicemente i segnali
+
+U1 = 1/s
+
+% calcolo l'uscita nel dominio di laplace
+Y1 = G * U1
+
+% "calcolo" l'antitrasformata
+% possiamo notare che la risposta nel tempo è una retta infinita; ce lo
+% aspettiamo: l'integrale di una costante è proprio una retta.
+
+subplot(2,1,1);
+impulse(Y1);
+
+% se però proviamo a calcolare l'uscita ad un segnale di tipo finestra,
+% l'uscita non sara' più una retta infinita, ma una retta finche' non si
+% esaurisce l'input; siccome la G ha un polo nell'origine, il sistema
+% "ricorda" l'input precedente e non torna a zero, ma resta all'ultimo
+% valore:
+
+% devo separare i due segnali in modo da poter applicare ad ogni singolo
+% segnale il ritardo corrispondente; successivamente sommerò (con il segno
+% opportuno) i vari segnali per ottenere l'input desiderato. 
+
+U21 = 1/s;                                          % gradino unitario
+U22 = tf([0 1], [1 0], 'inputDelay', 1);            % gradino unitario ritardato
+
+U2 = U21 - U22;
+Y2 = G * U2;
+
+subplot(2,1,2);
+impulse(Y2);                                        %"antitrasformo"
+title("Risposta alla finestra di ampiezza 1 e durata 1")
+
+```
+
+> E' importante scrivere i singoli "pezzi" di segnale separatamente in modo da potervi applicare un opportuno ritardo; non è possibile (che io sappia) scrivere direttamente il segnale (con i vari ritardi --> exp) perchè "impulse() non supporta i ritardi interni".
+
+Come output abbiamo:
+
+![image-20231222111351924](assets/image-20231222111351924.png)
+
 ### Tracciare uscita a Steady State di una sinusoide
 
 Ci basta sfruttare il fatto che la trasformata di Laplace del segnale impulso (nel dominio del tempo) è uguale ad 1 nel dominio di laplace:
 
 Per un sistema caratterizzato dalla funzione di trasferimento *G(s)*, avente come input *u(t)* e come output *y(t)*, allora possiamo scrivere:
 $$
-Y(s) = G(s) \cdot R(s)
+Y(s) = G(s) \cdot R(s) \\
+Siccome\ \mathcal{L}[\delta(t)]=1\\
+impulse(G*R)\ è\ proprio\ nel\ dominio\ del\ tempo!
 $$
+La trasformata di *sin(wt)* è...
+$$
+\mathcal{L}[sin(\omega t)] = \frac{\omega}{s^2+\omega^2}
+$$
+Possiamo quindi trovare la risposta nel seguente modo:
+
+### Creare un array di funzioni di trasferimento
+
+```matlab
+G_array = [1/(m*s+b(1))];   % primo elemento dell'array composto da funzioni di trasferimento
+
+for i = 2:length(b)
+    G_curr = 1/(m*s+b(i));
+    G_array = [G_array, G_curr]
+end
+```
+
+Dopodichè possiamo usare G_array nelle diverse applicazioni che vogliamo, ad esempio se volessimo disegnare la risposta ad un gradino unitario e mostrare le diverse risposte a seconda di b (valore che cambia), potremmo:
+
+```matlab
+t = 0:0.01:16;		% è importante specificare il tempo altrimenti le simulazioni più veloci non vengono simulate per t grandi.
+figure('name', 'Risposte nel tempo');           % figure 2
+for i = 1:length(G_array)
+    [y, t, x] = step(G_array(i), t);
+    plot(t, y, 'DisplayName',append('b = ',string(b(i))))
+
+    hold on;
+end
+legend show
+```
+
+Otteniamo un output del genere:
+
+![image-20231224121408564](assets/image-20231224121408564.png)
+
+
+
+### Maneggiare i dati SimuLink all'interno di matlab
+
+Dopo aver effettuato il plot in SimuLink con il blocco *scope* possiamo andare nelle impostazioni ed effettuare il *log* dei dati in matlab:
+
+![image-20231231111215684](assets/image-20231231111215684.png)
+
+![image-20231231111336751](assets/image-20231231111336751.png)
+
+Dopodiché possiamo maneggiare i dati in Matlab:
+
+```matlab
+% posso effettuare il plot da matlab con il comando:
+plot(out.syg1.time, out.syg1.signals.values)
+```
+
 
 
 ### Chicche
