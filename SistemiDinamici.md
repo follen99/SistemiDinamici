@@ -1,6 +1,8 @@
 # SistemiDinamici
 Repository dedicata all'esame di sistemi dinamici
 
+[TOC]
+
 ## Cosa inserire nel progetto
 
 - Primo lucido: il modello
