@@ -40,7 +40,7 @@ $$
       L_{1} \cdot \frac{\mathrm{d} }{\mathrm{d} t}q_{3} = -R_{1} \cdot q_{3} + p_{1} - p_{2}\\
       L_{2} \cdot \frac{\mathrm{d} }{\mathrm{d} t}q_{4} = -R_{1} \cdot q_{4} + p_{1} - p_{a}\\
 
-    \end{cases}\,.
+    \end{cases}\,
 \end{equation}
 $$
 
@@ -83,10 +83,61 @@ y_{1} = P_{1}\\
 \end{equation}
 $$
 
+Possiamo scrivere sottoforma di matrice:
 
+![matrici_light_hq](assets/matrici_light_hq.png)
 
+Possiamo inoltre "scegliere" l'uscita del sistema che vogliamo monitorare, per questo esempio scegliamo la *pressione P<sub>1</sub>*, che per semplicità coincide proprio con la variabile di stato *x<sub>1</sub>*:
 
+![uscita_matrice](assets/uscita_matrice.png)
 
+#### Funzione di trasferimento calcolata con MatLab
+
+Siccome la funzione di questo sistema risulta complicata da calcolare "a mano", possiamo servirci di **MatLab**, che una volta immessi i parametri del sistema tramite spazio di stato, può restituirci la **Funzione Di Trasferimento** *numerica* del sistema:
+
+##### Immissione delle matrici
+
+Dopo aver dichiarato i parametri, possiamo immettere le matrici appena trovate all'interno dell'ambiente MatLab; queste equazioni descrivono il sistema.
+
+```matlab
+A = [   0,      0,      -1/C1,      0;
+        0,      0,      1/C2,       -1/C2;
+        1/L1,   -1/L1,  -R1/L1,      0;
+        0,      1/L2,   0,          -R2/L2
+    ];
+
+B = [   1/C1,   0,      0;
+        0,      1/C2,   0;
+        0,      0,      0;
+        0,      0,      -1/L2
+    ];
+
+C = [1, 0, 0, 0];
+D = [0, 0, 0];
+```
+
+##### Calcolo della funzione di trasferimento
+
+Con i seguenti comandi possiamo trovare ***le*** funzioni di trasferimento associate ai diversi input:
+
+```matlab
+G = ss(A, B, C, D);         % Sistema a partire dallo spazio di stato              
+
+TFs = tf(G);                % Funzioni di trasferimento per i diversi input
+```
+
+Possiamo accedere ad una delle funzioni di trasferimento con il comando `Tfs(k)`; viene di seguito riportato la FDT numerica associata all'input 1:
+$$
+G(s)_{1} = \frac{0,01s^3+0.02s^2+0.01s+16\cdot 10^{-4}}{s^4 + 2s^3 +1.03s^2+26\cdot10^{-2}+8.3\cdot10^{5}}
+$$
+
+## Risposta del sistema nel tempo
+
+Dopo aver rappresentato il sistema nell'ambiente MatLab, possiamo iniziare ad ottenere informazioni sulle possibili risposte del sistema.
+
+La prima cosa che possiamo fare è controllare la posizione dei **poli** e degli **zeri** nel piano complesso; questo è possibile tramite il comando 	`pzmap(G)`, che restituisce il seguente grafico:
+
+![image-20240105190627554](assets/image-20240105190627554.png)
 
 
 

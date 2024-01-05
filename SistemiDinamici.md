@@ -470,6 +470,27 @@ plot(out.syg1.time, out.syg1.signals.values)
 
 ### Chicche
 
+#### Comando SubPlot
+
+Con il comando `subplot(rows, columns)` posto prima di ogni comando di `plot()` possiamo decidere di posizionare il plot in uno dei punti dati dalla matrice [rows] x [columns] specificata.
+
+Se vogliamo far occupare ad un plot più di una posizione basta specificare le posizioni occupate con un array: `subplot(rows, [column1, column2, ...])`; bisogna tenere a mente che le posizioni sono numerate nel seguente modo:
+
+```matlab
+%{
+ 1 | 2 | 3 | n
+ --------------
+ 4 | 5 | 6 | n
+ --------------
+ m | m | m |mxn
+%}
+subplot(2,3,[4 5 6])
+plot(t1, y1+y2+y3, 'LineWidth',2)
+title(sprintf("Uscita totale con Pa = %i", Pa))
+```
+
+![image-20240105202154443](assets/image-20240105202154443.png)
+
 #### DrawLabel
 
 Questa funzione permette di scrivere un label in corrispondenza di una curva e di farlo ad un determinato offset.
@@ -533,5 +554,75 @@ xlim([-10 100])
 
 
 
-## Programma del corso
+## Testo utile
+
+### Latex matrici
+
+```latex
+\begin{bmatrix}
+\dot{x_{1}} \\
+\dot{x_{2}} \\
+\dot{x_{3}} \\
+\dot{x_{4}} \\
+\end{}
+
+=
+
+\begin{bmatrix}
+  \begin{array}{rrrr}
+    0 & 0 & -\frac{1}{C_{1}} & 0\\
+    0 & 0 & \frac{1}{C_{2}} & -\frac{1}{C_{2}}\\
+\frac{1}{L_{1}} & -\frac{1}{L_{1}} & -\frac{R_{1}}{L_{1}} & 0\\
+0 & \frac{1}{L_{2}} & 0 & -\frac{R_{2}}{L_{2}}
+  \end{}
+\end{}
+
+\cdot
+
+\begin{bmatrix}
+x_{1} \\
+x_{2} \\
+x_{3} \\
+x_{4} \\
+\end{}
+
++
+
+\begin{bmatrix}
+\frac{1}{C_{1}} & 0 & 0 \\
+0 & \frac{1}{C_{2}} & 0 \\
+0 & 0 & 0 \\
+0 & 0 & -\frac{1}{L_{2}} \\
+ \end{}
+
+\cdot
+
+\begin{bmatrix}
+u_{1} \\
+u_{2} \\
+u_{3} \\
+ \end{}
+```
+
+```latex
+{\color{White}
+y = 
+\begin{bmatrix}
+1 & 0 & 0 & 0
+ \end{}
+
+\cdot
+
+\begin{bmatrix}
+x_{1} \\
+x_{2} \\
+x_{3} \\
+x_{4} \\
+ \end{}
+}
+```
+
+```matlab
+G(s)_{1} = \frac{0,01s^3+0.02s^2+0.01s+16\cdot\10^{-4}}{s^4 + 2s^3 +1.03s^2+26\cdot10^{-2}+8.3\cdot10^{5}}
+```
 
