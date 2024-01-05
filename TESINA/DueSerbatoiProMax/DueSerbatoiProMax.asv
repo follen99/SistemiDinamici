@@ -7,42 +7,148 @@
 % "pressione Atmosferica". Abbiamo quindi una differenza di pressione tra
 % l'inizio della condotta e la fine.
 clc; clear;
+DEFAULT_EXIT = 1;
 
-R1 = 1;
-R2 = 1;
+% La resistenza idraulica si misura in [Differenza di pressione]/[portata]
+GLOBAL R1 = 1;
+GLOBAL R2 = 1;
 
 % Capacità serbatoio in litri
-C1 = 100;       
-C2 = 120;
+% La dimensione più precisamente è [Superficie]/[Ro*g], dove
+% ro = [kg]/[m^3]
+% g = [m]/[s^2]
+GLOBAL C1 = 100;       
+GLOBAL C2 = 120;
 
-L1 = 1;
-L2 = 1;
+% L'induttanza idraulica si misura come [ro * h] / [s], dove
+% ro = [kg]/[m^3]
+% h = m
+% s = m^2
+GLOBAL L1 = 1;
+GLOBAL L2 = 1;
 
-Pa = 1;
+% Pressione atmosferica espressa in gradi
+GLOBAL Pa = 5;
 
-ro = 1000;
-g = 9.81;
+GLOBAL ro = 1000;
+GLOBAL g = 9.81;
+
+refreshMatrixes()
 
 
-A = [   0,      0,      -1/C1,      0;
+G_default = ss(A, B, C, D);         % Sistema a partire dallo spazio di stato              
+
+TFs = tf(G_default);                % Funzioni di trasferimento per i diversi input
+
+
+% ########## VISUALIZZO ZERI E POLI NEL PIANO DI GAUSS ##########
+figure('Name',"Piano complesso")
+pzmap(G_default)
+
+% ########## TROVO LA RISPOSTA AD UN SEGNALE COMPOSTO DA 3 INPUT ##########
+figure('Name',"Risposta al gradino")
+t = 0:0.1:1500;
+
+% Ricordando che 
+% u1 = flusso tank 1
+% u2 = flusso tank 2
+% u3 = pressione atmosferica Pa
+
+% Voglio ad esempio trovare la risposta quando i due flussi valgono 1 e la
+% pressione atmosferica vale 5:
+[y1, t1] = step(G_default(1), t);       % input 1
+subplot(2,3,1)
+plot(t1,y1);
+xlabel("tempo (s)")
+ylabel("Ampiezza")
+title("Modo da input 1 - flusso tank 1");
+
+[y2, t2] = step(G_default(2), t);       % input 2
+subplot(2,3,2)
+plot(t1,y2);
+xlabel("tempo (s)")
+ylabel("Ampiezza")
+title("Modo da input 2 - flusso tank 2");
+
+% Per l'entrata 3, ovvero la pressione atmosferica, devo "creare" un segnale custom, 
+% calcolare l'uscita e farne l'antitrasformata:
+s = tf('s');
+U1 = 5 * 1/s;                       % gradino di ampiezza 5 nel dominio di Laplace
+Y1 = G_default(3)*U1;               % calcolo l'uscita nel dominio di Laplace
+[y3, t3] = impulse(Y1, t);          % calcolo l'antitrasformata
+
+subplot(2,3,3)
+plot(t1,y3);
+xlabel("tempo (s)")
+ylabel("Ampiezza")
+title(sprintf("Modo da input 3 - Pressione atmosferica = %i", Pa))
+
+subplot(2,3,[4 5])
+plot(t1, y1+y2+y3, 'LineWidth',2)
+title(sprintf("Uscita totale con Pa = %i", Pa))
+hold on
+plot(t1,y1);
+plot(t1,y2);
+plot(t1,y3);
+xlabel("tempo (s)")
+ylabel("Ampiezza")
+legend('Uscita totale', 'Input 1','Input 2','Input 3');
+hold off
+
+% ########## MODIFICO L'INPUT 1 FACENDO CAMBIARE VALORE DOPO 100s ##########
+
+% Se ad esempio volessi modificare l'input 1, magari dicendo che dopo 500
+% secondi cambia valore, potrei farlo:
+
+U21 = 1/s;                                  % Gradino unitario
+U22 = tf([0 1], [1 0], 'inputDelay', 500);  % Gradino ritardato di 100
+U2 = U21 + U22;                             % Trovo il segnale risultante
+
+Y3 = G_default(1) * U2;
+[y2, t2] = impulse(Y3);
+subplot(2,3,6)
+plot(t2, y2);
+title("Input 1 cambia valore da 1 a 2 dopo 100s");
+xlabel("tempo (s)")
+ylabel("Ampiezza")
+
+
+% ########## USCITA AL VARIARE DEI PARAMETRI ##########
+figure('Name',"Uscita al variare dei parametri")
+
+% faccio variare la capacità del tank 1
+A
+C1 = 500;
+A
+G_capcity_1 = ss(A, B, C, D);
+step(G_capcity_1,t)
+
+
+
+function refreshMatrixes()
+    GLOBAL R1
+GLOBAL R2 = 1;
+GLOBAL C1 = 100;       
+GLOBAL C2 = 120;
+GLOBAL L1 = 1;
+GLOBAL L2 = 1;
+GLOBAL Pa = 5;
+
+GLOBAL ro = 1000;
+GLOBAL g = 9.81;
+
+    A = [   0,      0,      -1/C1,      0;
         0,      0,      1/C2,       -1/C2;
         1/L1,   -1/L1,  -R1/L1,      0;
         0,      1/L2,   0,          -R2/L2
     ];
 
-B = [   1/C1,   0,      0;
-        0,      1/C2,   0;
-        0,      0,      0;
-        0,      0,      -1/L2
-    ];
-
-C = [1, 0, 0, 0];
-D = [0, 0, 0];
-
-G = ss(A, B, C, D);         % Sistema a partire dallo spazio di stato              
-
-TFs = tf(G);                % Funzioni di trasferimento per i diversi input
-
-step(G);
-
-
+    B = [   1/C1,   0,      0;
+            0,      1/C2,   0;
+            0,      0,      0;
+            0,      0,      -1/L2
+        ];
+    
+    C = [1, 0, 0, 0];
+    D = [0, 0, 0];
+end
