@@ -33,21 +33,10 @@ Pa = 5;
 ro = 1000;
 g = 9.81;
 
-
-A = [   0,      0,      -1/C1,      0;
-        0,      0,      1/C2,       -1/C2;
-        1/L1,   -1/L1,  -R1/L1,      0;
-        0,      1/L2,   0,          -R2/L2
-    ];
-
-B = [   1/C1,   0,      0;
-        0,      1/C2,   0;
-        0,      0,      0;
-        0,      0,      -1/L2
-    ];
-
-C = [1, 0, 0, 0];
-D = [0, 0, 0];
+% Siccome voglio cambiare i valori di capacità, induttanza e resistenza, mi
+% conviene utilizzare una funzione che aggiorna i valori ogni volta che mi
+% serve.
+[A, B, C, D] = updateMatrixes(C1, C2, R1, R2, L1, L2);
 
 G_default = ss(A, B, C, D);         % Sistema a partire dallo spazio di stato              
 
@@ -130,8 +119,48 @@ ylabel("Ampiezza")
 figure('Name',"Uscita al variare dei parametri")
 
 % faccio variare la capacità del tank 1
-C1 = 500;
-G_capcity_1 = ss(A, B, C, D);
-step(G_capcity_1,t)
+n = 5;
+legend_text = cell(n, 1);               % preallocazione della memoria
+for i=1:n
+    G_capcity_1 = ss(A, B, C, D);       % Rappresento il sistema con il valore di C1 corrente
 
+    [yn, tn] = step(G_capcity_1);       % Calcolo la risposta al gradino unitario
+    yn_sum = sum(yn, [2 3]);            % Sommo le uscite dei 3 ingressi
+    plot(tn, yn_sum)                    % Disegno le diverse uscite
+    hold on;
+
+    C1 = C1 + 50;                       % Aggiorno il valore di C per la prossima iterazione
+    [A, B, C, D] = updateMatrixes(C1, C2, R1, R2, L1, L2);  % Aggiorno le matrici con il valore di C corrente
+    legend_text{i} = sprintf("Capacita' = %i", C1);         % Attribuisco ad ogni curva un nome per la legenda
+end
+xlabel("tempo (s)")
+ylabel("Ampiezza")
+title("Uscita totale al variare della capacità del Tank 1")
+
+legend(legend_text)                     % Mostro la legenda
+C1 = 100;                               % Ripristino il valore iniziale di C1 ed aggiorno
+[A, B, C, D] = updateMatrixes(C1, C2, R1, R2, L1, L2);
+hold off;
+
+
+
+
+
+% ###### FUNZIONI ######
+function [A, B, C, D] = updateMatrixes(C1, C2, R1, R2, L1, L2)
+    A = [   0,      0,      -1/C1,      0;
+        0,      0,      1/C2,       -1/C2;
+        1/L1,   -1/L1,  -R1/L1,      0;
+        0,      1/L2,   0,          -R2/L2
+    ];
+
+    B = [   1/C1,   0,      0;
+            0,      1/C2,   0;
+            0,      0,      0;
+            0,      0,      -1/L2
+        ];
+    
+    C = [1, 0, 0, 0];
+    D = [0, 0, 0];
+end
 

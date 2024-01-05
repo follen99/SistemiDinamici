@@ -10,31 +10,33 @@ clc; clear;
 DEFAULT_EXIT = 1;
 
 % La resistenza idraulica si misura in [Differenza di pressione]/[portata]
-GLOBAL R1 = 1;
-GLOBAL R2 = 1;
+R1 = 1;
+R2 = 1;
 
 % Capacità serbatoio in litri
 % La dimensione più precisamente è [Superficie]/[Ro*g], dove
 % ro = [kg]/[m^3]
 % g = [m]/[s^2]
-GLOBAL C1 = 100;       
-GLOBAL C2 = 120;
+C1 = 100;       
+C2 = 120;
 
 % L'induttanza idraulica si misura come [ro * h] / [s], dove
 % ro = [kg]/[m^3]
 % h = m
 % s = m^2
-GLOBAL L1 = 1;
-GLOBAL L2 = 1;
+L1 = 1;
+L2 = 1;
 
 % Pressione atmosferica espressa in gradi
-GLOBAL Pa = 5;
+Pa = 5;
 
-GLOBAL ro = 1000;
-GLOBAL g = 9.81;
+ro = 1000;
+g = 9.81;
 
-refreshMatrixes()
-
+% Siccome voglio cambiare i valori di capacità, induttanza e resistenza, mi
+% conviene utilizzare una funzione che aggiorna i valori ogni volta che mi
+% serve.
+[A, B, C, D] = updateMatrixes(C1, C2, R1, R2, L1, L2);
 
 G_default = ss(A, B, C, D);         % Sistema a partire dallo spazio di stato              
 
@@ -117,26 +119,13 @@ ylabel("Ampiezza")
 figure('Name',"Uscita al variare dei parametri")
 
 % faccio variare la capacità del tank 1
-A
-C1 = 500;
-A
+C1 = C1 +;
+[A, B, C, D] = updateMatrixes(C1, C2, R1, R2, L1, L2);
 G_capcity_1 = ss(A, B, C, D);
 step(G_capcity_1,t)
 
 
-
-function refreshMatrixes()
-    GLOBAL R1
-GLOBAL R2 = 1;
-GLOBAL C1 = 100;       
-GLOBAL C2 = 120;
-GLOBAL L1 = 1;
-GLOBAL L2 = 1;
-GLOBAL Pa = 5;
-
-GLOBAL ro = 1000;
-GLOBAL g = 9.81;
-
+function [A, B, C, D] = updateMatrixes(C1, C2, R1, R2, L1, L2)
     A = [   0,      0,      -1/C1,      0;
         0,      0,      1/C2,       -1/C2;
         1/L1,   -1/L1,  -R1/L1,      0;
@@ -152,3 +141,4 @@ GLOBAL g = 9.81;
     C = [1, 0, 0, 0];
     D = [0, 0, 0];
 end
+
