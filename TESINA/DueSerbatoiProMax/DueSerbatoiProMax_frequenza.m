@@ -1,5 +1,4 @@
 clc; clear;
-DEFAULT_EXIT = 2;
 
 % La resistenza idraulica si misura in [Differenza di pressione]/[portata]
 R1 = 1;
@@ -19,8 +18,6 @@ C2 = 120;
 L1 = 1;
 L2 = 1;
 
-% Pressione atmosferica espressa in gradi
-Pa = 5;
 
 ro = 1000;
 g = 9.81;
@@ -38,7 +35,7 @@ sys = ss(A, B, C, D);
 % decadi voglio prendere in più rispetto alle freq corrispondenti ai punti
 % di rottura.
 [lower_bound, upper_bound] = calcBounds(A, B, C, D, 2);
-w = logspace(lower_bound, upper_bound);
+w = logspace(lower_bound, upper_bound,500);
 
 
 mag_phase_w = cell(1,3);        % pre-alloco della memoria per posizionare i valori di mag e fase dei 3 output
@@ -78,7 +75,7 @@ title("Diagramma delle fasi totale")
 grid on
 
 % ##### TROVO LA RISPOSTA STEADY STATE SINUSOIDALE #####
-t = linspace(0, 10000, 1000);
+t = linspace(1, 10000, 1000);
 figure('Name',"Risposta in frequenza a regime")
 
 % frequenza amplificata
@@ -146,7 +143,7 @@ function [lower, upper] = calcBounds(A, B, C, D, CLEARANCE)
     % serve inoltre l'upper bound ed il lower bound; mi interessa prendere
     % quelli in assoluto più grandi a seconda dell'input, quindi controllo:
     for i = 1:3
-        [z, p, k] = ss2zp(A, B, C, D, i);
+        [~, p, ~] = ss2zp(A, B, C, D, i);
         p = p*-1;       % le frequenze sono il modulo dei poli
         p = p(p>0);     % se ci sono poli in origine non sono utili al calcolo delle frequenze, li tolgo
         % trovo l'esponente piu piccolo e quello piu grande, e prendo un intervallo

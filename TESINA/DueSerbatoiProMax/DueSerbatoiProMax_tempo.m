@@ -27,7 +27,7 @@ C2 = 120;
 L1 = 1;
 L2 = 1;
 
-% Pressione atmosferica espressa in gradi
+% Pressione atmosferica 
 Pa = 5;
 
 ro = 1000;
