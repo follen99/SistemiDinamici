@@ -147,15 +147,118 @@ Possiamo però "costruirci" un segnale custom da utilizzare come uno (o più) de
 
 ### Risposta ad un segnale custom
 
-La prima cosa da fare è sicuramente quella di costrire l'input personalizzato; vogliamo realizzare un segnale gradino che parte da un'ampiezza 1, e che varia di ampiezza (arrivando a 2) dopo 500s.
+La prima cosa da fare è sicuramente quella di costrire l'input personalizzato; vogliamo realizzare un segnale gradino che parte da un'ampiezza 1, e che varia di ampiezza (arrivando a 2) dopo 500s:
+
+![SegnaleDiIngresso.drawio](assets/SegnaleDiIngresso.drawio.png)
+
+Possiamo scrivere il segnale come somma di segnali elementari:
+$$
+\begin{cases}
+    u_{1}(t) = {\bf 1}(t) \\
+    u_{2}(t) = {\bf 1}(t-500)
+\end{cases}
+$$
+
+$$
+u(t) = u_{1}(t) + u_{2}(t)
+$$
+
+Possiamo trasformare il segnale nel dominio di Laplace ottenendo:
+$$
+\begin{cases}
+u_{1}(t) \longleftrightarrow U_{1}(s) = \frac{1}{s}\\
+u_{2}(t) \longleftrightarrow U_{2}(s) = \frac{1}{s} \cdot e^{-100s}\\
+\end{cases}
+$$
+
+$$
+U(s) = U_{1}(s) + U_{2}(s)
+$$
+
+Possiamo quindi costruire il segnale su MatLab "pezzo per pezzo" nel seguente modo:
+
+```matlab
+U21 = 1/s;                                  % Gradino unitario
+U22 = tf([0 1], [1 0], 'inputDelay', 500);  % Gradino ritardato di 100
+U2 = U21 + U22;                             % Trovo il segnale risultante
+```
+
+Per trovare l'uscita ci basta quindi moltiplicare il segnale (nel dominio di Laplace) per la funzione di trasferimento (che abbiamo ottenuto tramite lo spazio di stato); bisogna stare attenti però a "selezionare" la funzione di trasferimento giusta, perchè come abbiamo già visto, le FDT sono 3, una per ogni input.
+
+In questo caso vogliamo che il segnale sia attribuito all'input 1, ovvero al flusso del tank 1, quindi scegliamo la FDT 1:
+
+```matlab
+Y3 = G_default(1) * U2;						% Calcolo l'uscita nel dominio di Laplace
+[y2, t2] = impulse(Y3);						% Calcolo l'antitrasformata
+```
+
+Possiamo calcolare l'antitrasformta con `impulse(Y3)`, perché nel dominio di Laplace l'impulso corrisponde ad `1`, quindi moltiplicando per 1 il segnale *Y(s)* non cambia; successivamente provvede MatLab ad *antri trasformare* (sempre con impulse).
+
+### Plot dei singoli modi
+
+Possiamo quindi effettuare il plot dei singoli modi e dei segnali totali:
+
+![image-20240106113047528](assets/image-20240106113047528.png)
+
+> - **Plot 1**: modo dall'input 1 gradino unitario (q<sub>1</sub>)
+> - Plot 2: modo dall'input 2 gradino unitario (q<sub>2</sub>)
+> - Plot 3: modo dall'input 3 gradino di ampiezza 5 (P<sub>a</sub>)
+> - Plot 4: 
+>   - In Blu: uscita totale dei segnali 1, 2 e 3.
+>   - Il resto dei plot sono i singoli modi.
+> - Plot 5: uscita totale agli input:
+>   - in 1: gradino che inizia unitario e cambia valore in t=500 arrivando ad un valore pari a 2.
+>   - in 2: gradino unitario.
+>   - in 3: gradino unitario.
 
 
 
+### Risposta del sistema al variare dei parametri
 
+#### Risposta al variare della capacità
 
-![image-20240106113047528](./assets/image-20240106113047528.png)
+In questo esempio facciamo variare la capacità del tank 1, con il seguente codice:
+
+```matlab
+for i=1:n
+    G_capcity_1 = ss(A, B, C, D);       % Rappresento il sistema con il valore di C1 corrente
+
+    [yn, tn] = step(G_capcity_1);       % Calcolo la risposta al gradino unitario
+    yn_sum = sum(yn, [2 3]);            % Sommo le uscite dei 3 ingressi
+    plot(tn, yn_sum)                    % Disegno le diverse uscite
+    hold on;
+
+    C1 = C1 + 50;                       % Aggiorno il valore di C per la prossima iterazione
+    [A, B, C, D] = updateMatrixes(C1, C2, R1, R2, L1, L2);  % Aggiorno le matrici con il valore di C corrente
+    legend_text{i} = sprintf("Capacita' = %i", C1);         % Attribuisco ad ogni curva un nome per la legenda
+end
+```
+
+Andiamo quindi, ad ogni iterazione, ad aumentare la capacità del serbatoio; possiamo notare dalle curve, che man mano che la capacità aumenta, la pressione del sistema impiega sempre più tempo ad arrivare a regime.
+
+Notiamo, però, che il *valore* di regime resta invariato.
 
 ![image-20240106113124504](./assets/image-20240106113124504.png)
+
+#### Risposta al variare dell'induttanza
+
+Allo stesso modo possiamo far variare l'induttanza; ad ogni iterazione variamo di un valore maggiore, in modo da ottenere un risultato più "interessante":
+
+INSERISCI RISPOSTA AL VARIARE INDUTTANZA
+
+#### Risposta al variare della resistenza
+
+##### Resistenza condotta 1
+
+Se la resistenza della condotta 1 aumenta, allora la pressione sul tank 1 aumenta, perchè il liquido avrà maggiore difficoltà a spostarsi dal tank 1 al tank 2, infatti:
+
+INSERISCI RISPOSTA AL VARIARE REISTENZA 1
+
+
+
+
+
+
 
 
 

@@ -97,7 +97,7 @@ ylabel("Ampiezza")
 legend('Uscita totale', 'Input 1','Input 2','Input 3');
 hold off
 
-% ########## MODIFICO L'INPUT 1 FACENDO CAMBIARE VALORE DOPO 100s ##########
+% ########## RISPOSTA AD UN SEGNALE CUSTOM ##########
 
 % Se ad esempio volessi modificare l'input 1, magari dicendo che dopo 500
 % secondi cambia valore, potrei farlo:
@@ -110,21 +110,97 @@ Y3 = G_default(1) * U2;
 [y2, t2] = impulse(Y3);
 subplot(2,3,6)
 plot(t2, y2);
-title("Input 1 cambia valore da 1 a 2 dopo 100s");
+title("Input 1 cambia valore da 1 a 2 dopo 500s");
 xlabel("tempo (s)")
 ylabel("Ampiezza")
 
 
 % ########## USCITA AL VARIARE DEI PARAMETRI ##########
-figure('Name',"Uscita al variare dei parametri")
+figure('Name',"Uscita al variare della capacità")
 
-% faccio variare la capacità del tank 1
-C1 = C1 +;
+% VARIA L'INDUTTANZA DEL TANK 1
+n = 5;
+legend_text = cell(n, 1);               % preallocazione della memoria
+for i=1:n
+    G_capcity_1 = ss(A, B, C, D);       % Rappresento il sistema con il valore di C1 corrente
+
+    [yn, tn] = step(G_capcity_1);       % Calcolo la risposta al gradino unitario
+    yn_sum = sum(yn, [2 3]);            % Sommo le uscite dei 3 ingressi
+    plot(tn, yn_sum)                    % Disegno le diverse uscite
+    hold on;
+
+    legend_text{i} = sprintf("Capacita' = %i", C1);         % Attribuisco ad ogni curva un nome per la legenda
+    C1 = C1 + 50;                       % Aggiorno il valore di C per la prossima iterazione
+    [A, B, C, D] = updateMatrixes(C1, C2, R1, R2, L1, L2);  % Aggiorno le matrici con il valore di C corrente
+end
+xlabel("tempo (s)")
+ylabel("Ampiezza")
+title("Uscita totale al variare della capacità del Tank 1")
+
+legend(legend_text)                     % Mostro la legenda
+C1 = 100;                               % Ripristino il valore iniziale di C1 ed aggiorno
 [A, B, C, D] = updateMatrixes(C1, C2, R1, R2, L1, L2);
-G_capcity_1 = ss(A, B, C, D);
-step(G_capcity_1,t)
+hold off;
 
 
+% VARIA L'INDUTTANZA DELLA CONDOTTA 1
+figure('Name',"Uscita al variare dell'induttanza")
+
+n = 5;
+legend_text = cell(n, 1);               % preallocazione della memoria
+for i=1:n
+    G_inductance_1 = ss(A, B, C, D);       % Rappresento il sistema con il valore di C1 corrente
+
+    [yn, tn] = step(G_inductance_1);       % Calcolo la risposta al gradino unitario
+    yn_sum = sum(yn, [2 3]);            % Sommo le uscite dei 3 ingressi
+    plot(tn, yn_sum)                    % Disegno le diverse uscite
+    hold on;
+
+    legend_text{i} = sprintf("Induttanza L1 = %i", L1);         % Attribuisco ad ogni curva un nome per la legenda
+    L1 = L1 + 150;                       % Aggiorno il valore di C per la prossima iterazione
+    [A, B, C, D] = updateMatrixes(C1, C2, R1, R2, L1, L2);  % Aggiorno le matrici con il valore di C corrente
+end
+
+xlabel("tempo (s)")
+ylabel("Ampiezza")
+title("Uscita totale al variare dell'induttanza della condotta 1")
+
+legend(legend_text)                     % Mostro la legenda
+L1 = 1;                               % Ripristino il valore iniziale di C1 ed aggiorno
+[A, B, C, D] = updateMatrixes(C1, C2, R1, R2, L1, L2);
+hold off;
+
+% VARIA LA RESISTENZA DELLA CONDOTTA 1
+figure('Name',"Uscita al variare della resistenza")
+
+n = 5;
+legend_text = cell(n, 1);               % preallocazione della memoria
+resistance_time = 0:100:10^5/2;
+for i=1:n
+    G_resistance_1 = ss(A, B, C, D);       % Rappresento il sistema con il valore di C1 corrente
+
+    [yn, tn] = step(G_resistance_1,resistance_time);       % Calcolo la risposta al gradino unitario
+    yn_sum = sum(yn, [2 3]);            % Sommo le uscite dei 3 ingressi
+    plot(tn, yn_sum)                    % Disegno le diverse uscite
+    hold on;
+
+    legend_text{i} = sprintf("Resistenza R1 = %i", R1);         % Attribuisco ad ogni curva un nome per la legenda
+    R1 = R1 + 15;                       % Aggiorno il valore di C per la prossima iterazione
+    [A, B, C, D] = updateMatrixes(C1, C2, R1, R2, L1, L2);  % Aggiorno le matrici con il valore di C corrente
+end
+
+xlabel("tempo (s)")
+ylabel("Ampiezza")
+title("Uscita totale al variare dell'induttanza della condotta 1")
+
+legend(legend_text)                     % Mostro la legenda
+R1 = 1;                               % Ripristino il valore iniziale di C1 ed aggiorno
+[A, B, C, D] = updateMatrixes(C1, C2, R1, R2, L1, L2);
+hold off;
+
+
+
+% ###### FUNZIONI ######
 function [A, B, C, D] = updateMatrixes(C1, C2, R1, R2, L1, L2)
     A = [   0,      0,      -1/C1,      0;
         0,      0,      1/C2,       -1/C2;
