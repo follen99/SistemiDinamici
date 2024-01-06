@@ -95,7 +95,6 @@ plot(t, y);
 title("Segnale amplificato (frequenza bassa)")
 hold on
 plot(t, sin(freq*t))
-ylabel("Uscita (somma degli input)")
 legend("frequenza amplificata: 10^{-3}", "Segnale iniziale")
 grid
 
@@ -110,7 +109,7 @@ subplot(2,1,2)
 plot(t, y);
 hold on
 plot(t, sin(freq*t))
-ylabel("Uscita (somma degli input)")
+
 title("Segnale attenuato (frequenza alta)")
 legend("frequenza attenuata: 10^{-2}", "Segnale iniziale")
 grid
