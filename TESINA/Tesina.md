@@ -137,9 +137,25 @@ Dopo aver rappresentato il sistema nell'ambiente MatLab, possiamo iniziare ad ot
 
 La prima cosa che possiamo fare è controllare la posizione dei **poli** e degli **zeri** nel piano complesso; questo è possibile tramite il comando 	`pzmap(G)`, che restituisce il seguente grafico:
 
-![image-20240105190627554](assets/image-20240105190627554.png)
+ ![image-20240106112015562](./assets/image-20240106112015562.png)
+
+Dopo aver visualizzato i diversi poli e zeri del sistema, possiamo passare a trovare l'uscita del sistema ad un segnale; siccome il sistema è composto di 3 input, nel momento in cui calcoliamo `step(G)`, ovvero la risposta ad un segnale gradino, matlab "mette in ingresso" un gradino unitario **a tutti e 3 gli input**. 
+
+Capiamo quindi che questo modo è un po' troppo limitante per il calcolo dell'uscita.
+
+Possiamo però "costruirci" un segnale custom da utilizzare come uno (o più) degli input del sistema; vediamo come fare:
+
+### Risposta ad un segnale custom
+
+La prima cosa da fare è sicuramente quella di costrire l'input personalizzato; vogliamo realizzare un segnale gradino che parte da un'ampiezza 1, e che varia di ampiezza (arrivando a 2) dopo 500s.
 
 
+
+
+
+![image-20240106113047528](./assets/image-20240106113047528.png)
+
+![image-20240106113124504](./assets/image-20240106113124504.png)
 
 
 
