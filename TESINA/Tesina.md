@@ -244,15 +244,13 @@ Notiamo, però, che il *valore* di regime resta invariato.
 
 Allo stesso modo possiamo far variare l'induttanza; ad ogni iterazione variamo di un valore maggiore, in modo da ottenere un risultato più "interessante":
 
-INSERISCI RISPOSTA AL VARIARE INDUTTANZA
+![image-20240107210446106](./assets/image-20240107210446106.png)
 
 #### Risposta al variare della resistenza
 
-##### Resistenza condotta 1
-
 Se la resistenza della condotta 1 aumenta, allora la pressione sul tank 1 aumenta, perchè il liquido avrà maggiore difficoltà a spostarsi dal tank 1 al tank 2, infatti:
 
-INSERISCI RISPOSTA AL VARIARE REISTENZA 1
+![image-20240107210512401](./assets/image-20240107210512401.png)
 
 
 
