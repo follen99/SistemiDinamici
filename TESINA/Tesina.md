@@ -2,6 +2,8 @@
 
 ![ritagliata](assets/ritagliata.png)
 
+[TOC]
+
 ## Schema del sistema
 
 ![SchemaDarkModeNoBG](assets/SchemaDarkModeNoBG.png)
@@ -253,6 +255,62 @@ Se la resistenza della condotta 1 aumenta, allora la pressione sul tank 1 aument
 ![image-20240107210512401](./assets/image-20240107210512401.png)
 
 
+
+## Diagrammi di Bode
+
+Possiamo effettuare un'analisi anche dal punto di vista della frequenza, andando a tracciare i **diagrammi di Bode**, sia dei moduli che delle fasi:
+
+![image-20240107211127030](./assets/image-20240107211127030.png)
+
+I diagrammi di Bode sono in grado di darci molte informazioni sul sistema in esame; possiamo ad esempio vedere che tutte le frequenze inferiori alla frequenza 
+$$
+\omega < 10^{-3} \ \ \ rad/s
+$$
+vengono leggermente amplificate, mentre a partire da questa frequenza in poi verranno attenuate.
+
+**Ma cosa vuol dire?**
+
+Essenzialmente stiamo dicendo che, data una sinusoide di una certa ampiezza in ingresso del tipo:
+$$
+u(t) = X \cdot sin(\omega_{0} \cdot t)
+$$
+avremo in output un segnale sempre sinusoidale, ma con modulo e fase cambiati, a seconda dei valori letti sui diagrammi di Bode:
+$$
+y(t) = X \cdot |G(j\omega_{0})|_{dB} \ \cdot sin(\omega_{0} \cdot t \ + \angle{G(j\omega_{0})})
+$$
+
+### Lettura del diagramma dei moduli
+
+Di conseguenza, se sul diagramma dei moduli vedremo un valore positivo (in corrispondenza della frequenza dell'ingresso u(t)), sapremo che l'input verrà amplificato, mentre se vedremo un valore negativo l'input verrà attenuato.
+
+Otteniamo questo comportamento per via del fatto che sul diagramma di Bode, i moduli vengono espressi in **deciBel**; un valore x<sub>0</sub> può essere convertito in deciBel secondo la formula:
+$$
+x_{dB} = 20 \cdot log_{10}(x_{0})
+$$
+Quindi, quando leggiamo il valore sul diagramma dei moduli, e lo convertiamo nuovamente in valore naturale, seguendo la formula:
+$$
+x_{dB} = 20 \cdot log_{10}(x_{0}) \Longrightarrow \ x_{0} = 10^{\frac{x_{dB}}{20}}
+$$
+
+### Lettura del diagramma delle fasi
+
+Il diagramma delle fasi ci dice se la fase della sinusoide in uscita è **in anticipo o in ritardo** rispetto alla sinusoide in entrata; se leggiamo, ad esempio, un valore di *+90°*, questo vorrà dire che la sinusoide in uscita è in anticipo di 90° rispetto al segnale in entrata.
+
+Il segnale in uscita può anche essere **in fase** col segnale in entrata, ovvero se, in corrispondenza di quella determinata frequenza, il diagramma delle fasi riporta come valore `0`.
+
+### Uscita "Steady State"
+
+Possiamo quindi trovare l'uscita **Steady State**, ovvero la risposta del sistema dopo che il *transitorio* si è esaurito, e l'uscita **è a regime**.
+
+![image-20240107212750287](./assets/image-20240107212750287.png)
+
+In questo esempio possiamo vedere due tipi di output, che vengono calcolati a seconda dell'input. In blu osserviamo l'output, mentre l'input è rappresentato in arancione.
+
+Nel primo caso, è stata scelta una frequenza tale che, a seconda delle specifiche del sistema, porta l'output ad essere **amplificato**; infatti possiamo osservare come il valore di uscita (bisogna sempre tenere presente che l'output è la somma di 3 contributi, visto che il sistema accetta 3 input) ha un'ampiezza maggiore rispetto al segnale di entrata.
+
+Nel secondo caso, è stata scelta una frequenza **più alta**, in modo che l'output venisse **attenuato**. Continuiamo ad osservare un'ampiezza finale maggiore rispetto a quella del segnale di ingresso per il semplice motivo che il segnale di output è la somma di 3 contributi.
+
+L'intervallo di frequenze (banda) scelto è lo stesso per entrambi i segnali, proprio per evidenziare le differenze di frequenza e di fase.
 
 
 
