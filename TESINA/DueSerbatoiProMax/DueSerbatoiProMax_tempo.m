@@ -9,9 +9,13 @@
 clc; clear;
 DEFAULT_EXIT = 1;
 
+% imposto la griglia on per ogni plot di default
+set(groot,'defaultAxesXGrid','on')
+set(groot,'defaultAxesYGrid','on')
+
 % La resistenza idraulica si misura in [Differenza di pressione]/[portata]
 R1 = 1;
-R2 = 1;
+R2 = 1;     % per R2 = 0 il sistema diventa uscillante
 
 % Capacità serbatoio in litri
 % La dimensione più precisamente è [Superficie]/[Ro*g], dove
