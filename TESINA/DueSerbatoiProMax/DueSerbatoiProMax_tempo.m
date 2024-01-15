@@ -43,9 +43,12 @@ G_default = ss(A, B, C, D);         % Sistema a partire dallo spazio di stato
 TFs = tf(G_default);                % Funzioni di trasferimento per i diversi input
 
 
-% ########## VISUALIZZO ZERI E POLI NEL PIANO DI GAUSS ##########
-figure('Name',"Piano complesso")
+% ########## VISUALIZZO ZERI E POLI NEL PIANO DI GAUSS  e RISPOSTA IMPULSIVA ##########
+figure('Name',"Piano complesso e risposta impulsiva")
+subplot(2,1,1)
 pzmap(G_default)
+subplot(2,1,2)
+impulse(G_default)
 
 % ########## TROVO LA RISPOSTA AD UN SEGNALE COMPOSTO DA 3 INPUT ##########
 figure('Name',"Risposta al gradino")
