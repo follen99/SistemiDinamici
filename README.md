@@ -1,4 +1,4 @@
-# SistemiDinamici
+# Sistemi Dinamici
 Repository dedicata all'esame di sistemi dinamici
 
 ### Elenco delle possibili domande - Esame orale 2024
@@ -22,19 +22,19 @@ Repository dedicata all'esame di sistemi dinamici
 - [x] Trasformata di Laplace del coseno
 - [x] Scomposizione in fratti semplici
 - [x] Risoluzione di equazioni differenziali con la trasformata di Laplace
-- [ ] Modello di circuito RC (funzione di trasferimento, schema a blocchi, spazio di stato)
+- [x] Modello di circuito RC (funzione di trasferimento, schema a blocchi, spazio di stato)
 - [ ] Modello di circuito RL (funzione di trasferimento, schema a blocchi, spazio di stato)
-- [ ] Modello di circuito RLC (funzione di trasferimento, schema a blocchi, spazio di stato)
-- [ ] Modello di circuito doppio RC in cascata (funzione di trasferimento, schema a blocchi, spazio di stato)
+- [x] Modello di circuito RLC (funzione di trasferimento, schema a blocchi, spazio di stato)
+- [x] Modello di circuito doppio RC in cascata (funzione di trasferimento, schema a blocchi, spazio di stato) **ELEMENTI IN CASCATA**
 - [x] Modello controllore proporzionale (invertente e non invertente) con amplificatore operazionale
 - [x] Modello controllore integrale con amplificatore operazionale
 - [x] Modello controllore proporzionale-integrale con amplificatore operazionale
-- [ ] Modello di sistema massa-smorzatore (funzione di trasferimento, schema a blocchi, spazio di stato)
-- [ ] Modello di sistema massa-molla (funzione di trasferimento, schema a blocchi, spazio di stato)
-- [ ] Modello di sistema massa-molla-smorzatore (funzione di trasferimento, schema a blocchi, spazio di stato)
-- [ ] Modello di sistema con due masse accoppiate (funzione di trasferimento, schema a blocchi, spazio di stato)
-- [ ] Modelli serbatoi idraulici comunicanti (funzione di trasferimento, schema a blocchi, spazio di stato)
-- [ ] Modelli termici stanza-radiatore (funzione di trasferimento, schema a blocchi, spazio di stato)
+- [x] Modello di sistema massa-smorzatore (funzione di trasferimento, schema a blocchi, spazio di stato)
+- [x] Modello di sistema massa-molla (funzione di trasferimento, schema a blocchi, spazio di stato)
+- [x] Modello di sistema massa-molla-smorzatore (funzione di trasferimento, schema a blocchi, spazio di stato)
+- [ ] Modello di sistema con due masse accoppiate (funzione di trasferimento, schema a blocchi, spazio di stato) **VISTO MA NON APPROFONDITO**
+- [x] Modelli serbatoi idraulici comunicanti (funzione di trasferimento, schema a blocchi, spazio di stato)
+- [x] Modelli termici stanza-radiatore (funzione di trasferimento, schema a blocchi, spazio di stato)
 - [x] Linearizzazione
 - [x] Ricavare la funzione di trasferimento dalla rappresentazione nello spazio di stato
 - [x] Stabilità di sistemi dinamici lineari tempo-invarianti: relazione tra stabilità, asintotica stabilità, posizione di poli nel piano complesso e risposta impulsiva.
@@ -43,7 +43,7 @@ Repository dedicata all'esame di sistemi dinamici
 - [x] Risposta forzata (transitoria e di regime) all’impulso per sistemi del primo ordine
 - [x] Risposta forzata (transitoria e di regime) al gradino per sistemi del secondo ordine al variare del coefficiente di smorzamento
 - [x] Specifiche della risposta transitoria per sistemi del secondo ordine: tempo di salita, tempo di picco, massima sovraelongazione, tempo di assestamento.
-- [ ] Risposta al gradino per sistemi di ordine superiore al secondo con poli distinti.
+- [x] Risposta al gradino per sistemi di ordine superiore al secondo con poli distinti.
 - [ ] Evoluzione libera ed evoluzione forzata **DA FARE** lezione 19
 - [x] Risposta in frequenza **dimostrazione uscita steady state IMPO**
 - [x] Diagrammi di Bode di fattori integrali e derivativi
