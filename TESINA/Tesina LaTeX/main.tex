@@ -4,8 +4,12 @@
 %
 \documentclass[
 ]{article}
-\usepackage{amsmath,amssymb}
-\usepackage{iftex}
+\usepackage[a4paper, total={7in, 10in}]{geometry}
+\usepackage{amsmath}
+\usepackage{titlesec}
+
+
+
 \ifPDFTeX
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
@@ -111,29 +115,47 @@
   hidelinks,
   pdfcreator={LaTeX via pandoc}}
 
-\author{}
-\date{}
+\author{Giuliano Ranauro}
+\date{17/01/2024}
+
+\title{ \begin{huge}
+\textbf{Tesina Sistemi Dinamici: Due serbatoi} 
+\end{huge} }
 
 \begin{document}
+\maketitle
 
-\hypertarget{tesina-sistemi-dinamici}{%
-\section{Tesina Sistemi Dinamici}\label{tesina-sistemi-dinamici}}
 
-\includegraphics{/Users/follen/Desktop/SistemiDinamici/TESINA/assets/ritagliata.png}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/ritagliata.png}
+    \caption{Enter Caption}
+    \label{fig:enter-label}
+\end{figure}
+
 
 \tableofcontents
 
+\newpage
+
 \hypertarget{schema-del-sistema}{%
+\section{Risposta nel tempo}
 \subsection{Schema del sistema}\label{schema-del-sistema}}
 
-\includegraphics{/Users/follen/Desktop/SistemiDinamici/TESINA/assets/SchemaDarkModeNoBG.png}
+\begin{figure}
+    \centering
+    \includegraphics[width=1\linewidth]{images/DueSerbatoiSchemaLight.png}
+    \caption{Enter Caption}
+    \label{fig:enter-label}
+\end{figure}
+
 
 \begin{quote}
 Schema del sistema idraulico composto da due serbatoi.
 \end{quote}
 
 \hypertarget{circuito-equivalente}{%
-\subsubsection{Circuito Equivalente}\label{circuito-equivalente}}
+\subsection{Circuito Equivalente}\label{circuito-equivalente}}
 
 E` possibile rappresentare lo schema idraulico in termini di
 \textbf{circuito elettrico}, con le componenti che conosciamo, andando a
@@ -165,14 +187,20 @@ Bisogna tenere a mente diversi accorgimenti:
   elettrico, ovvero in \emph{corrente elettrica}.
 \end{itemize}
 
-\includegraphics{/Users/follen/Desktop/SistemiDinamici/TESINA/assets/CircuitoEquivalenteRichDark.drawio.png}
+\begin{figure}
+    \centering
+    \includegraphics[width=1\linewidth]{images/CircuitoEquivalenteRichLight.png}
+    \caption{Enter Caption}
+    \label{fig:enter-label}
+\end{figure}
 
 \begin{quote}
 Circuito equivalente
 \end{quote}
 
+
 \hypertarget{equazioni-del-sistema}{%
-\subsubsection{Equazioni del sistema}\label{equazioni-del-sistema}}
+\subsection{Equazioni del sistema}\label{equazioni-del-sistema}}
 
 A partire dal circuito equivalente è possibile estrapolare le equazioni
 del sistema, che lo descrivono:
@@ -186,6 +214,7 @@ del sistema, che lo descrivono:
 
     \end{cases}\,
 \end{equation}
+\newpage
 
 Ricordando la natura del sistema, possiamo identificare i valori di
 input:
@@ -207,7 +236,7 @@ input:
 \end{itemize}
 
 \hypertarget{modello-nello-spazio-di-stato}{%
-\subsubsection{Modello nello spazio di
+\subsection{Modello nello spazio di
 stato}\label{modello-nello-spazio-di-stato}}
 
 Possiamo quindi partire dalle equazioni del sistema e rappresentarlo
@@ -238,16 +267,28 @@ y_{1} = P_{1}\\
 
 Possiamo scrivere sottoforma di matrice:
 
-\includegraphics{/Users/follen/Desktop/SistemiDinamici/TESINA/assets/matrici_light_hq.png}
+\begin{figure}
+    \centering
+    \includegraphics[width=1\linewidth]{images/matrici_corretto_light.png}
+    \caption{Spazio di stato in notazione matriciale}
+    
+\end{figure}
 
 Possiamo inoltre "scegliere" l\textquotesingle uscita del sistema che
 vogliamo monitorare, per questo esempio scegliamo la \emph{pressione
 P1}, che per semplicità coincide proprio con la variabile di stato
 \emph{x1}:
 
-\includegraphics{/Users/follen/Desktop/SistemiDinamici/TESINA/assets/uscita_matrice.png}
+\begin{figure}
+    \centering
+    \includegraphics[width=1\linewidth]{images/uscitamatrice_light.png}
+    \caption{Uscita del sistema}
+    \label{fig:enter-label}
+\end{figure}
 
-\hypertarget{funzione-di-trasferimento-calcolata-con-matlab}{%
+\newpage
+
+\subsection{Funzione di trasferimento calcolata con matlab}{%
 \paragraph{Funzione di trasferimento calcolata con
 MatLab}\label{funzione-di-trasferimento-calcolata-con-matlab}}
 
@@ -257,7 +298,7 @@ parametri del sistema tramite spazio di stato, può restituirci la
 \textbf{Funzione Di Trasferimento} \emph{numerica} del sistema:
 
 \hypertarget{immissione-delle-matrici}{%
-\subparagraph{Immissione delle matrici}\label{immissione-delle-matrici}}
+\subsubsection{Immissione delle matrici}\label{immissione-delle-matrici}}
 
 Dopo aver dichiarato i parametri, possiamo immettere le matrici appena
 trovate all\textquotesingle interno dell\textquotesingle ambiente
@@ -283,7 +324,7 @@ MatLab; queste equazioni descrivono il sistema.
 \end{Shaded}
 
 \hypertarget{calcolo-della-funzione-di-trasferimento}{%
-\subparagraph{Calcolo della funzione di
+\subsubsection{Calcolo della funzione di
 trasferimento}\label{calcolo-della-funzione-di-trasferimento}}
 
 Con i seguenti comandi possiamo trovare \emph{\textbf{le}} funzioni di
@@ -303,6 +344,8 @@ all\textquotesingle input 1:
 
 \[G(s)_{1} = \frac{0,01s^3+0.02s^2+0.01s+16\cdot 10^{-4}}{s^4 + 2s^3 +1.03s^2+26\cdot10^{-2}+8.3\cdot10^{5}}\]
 
+\newpage
+
 \hypertarget{risposta-del-sistema-nel-tempo}{%
 \subsection{Risposta del sistema nel
 tempo}\label{risposta-del-sistema-nel-tempo}}
@@ -316,7 +359,12 @@ La prima cosa che possiamo fare è controllare la posizione dei
 possibile tramite il comando \texttt{pzmap(G)}, che restituisce il
 seguente grafico:
 
-\includegraphics{/Users/follen/Desktop/SistemiDinamici/TESINA/assets/image-20240106112015562.png}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\linewidth]{images/image-20240106112015562.png}
+    
+    
+\end{figure}
 
 Dopo aver visualizzato i diversi poli e zeri del sistema, possiamo
 passare a trovare l\textquotesingle uscita del sistema ad un segnale;
@@ -330,6 +378,8 @@ limitante per il calcolo dell\textquotesingle uscita.
 Possiamo però "costruirci" un segnale custom da utilizzare come uno (o
 più) degli input del sistema; vediamo come fare:
 
+\newpage
+
 \hypertarget{risposta-ad-un-segnale-custom}{%
 \subsubsection{Risposta ad un segnale
 custom}\label{risposta-ad-un-segnale-custom}}
@@ -339,7 +389,12 @@ l\textquotesingle input personalizzato; vogliamo realizzare un segnale
 gradino che parte da un\textquotesingle ampiezza 1, e che varia di
 ampiezza (arrivando a 2) dopo 500s:
 
-\includegraphics{/Users/follen/Desktop/SistemiDinamici/TESINA/assets/SegnaleDiIngresso.drawio.png}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{images/SegnaleDiIngressolight.png}
+    
+    
+\end{figure}
 
 Possiamo scrivere il segnale come somma di segnali elementari:
 
@@ -382,8 +437,8 @@ scegliamo la FDT 1:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\VariableTok{Y3} \OperatorTok{=} \VariableTok{G\_default}\NormalTok{(}\FloatTok{1}\NormalTok{) }\OperatorTok{*} \VariableTok{U2}\OperatorTok{;}						\CommentTok{\% Calcolo l\textquotesingle{}uscita nel dominio di Laplace}
-\NormalTok{[}\VariableTok{y2}\OperatorTok{,} \VariableTok{t2}\NormalTok{] }\OperatorTok{=} \VariableTok{impulse}\NormalTok{(}\VariableTok{Y3}\NormalTok{)}\OperatorTok{;}						\CommentTok{\% Calcolo l\textquotesingle{}antitrasformata}
+\VariableTok{Y3} \OperatorTok{=} \VariableTok{G\_default}\NormalTok{(}\FloatTok{1}\NormalTok{) }\OperatorTok{*} \VariableTok{U2}\OperatorTok{;}			\CommentTok{\% Calcolo l\textquotesingle{}uscita nel dominio di Laplace}
+\NormalTok{[}\VariableTok{y2}\OperatorTok{,} \VariableTok{t2}\NormalTok{] }\OperatorTok{=} \VariableTok{impulse}\NormalTok{(}\VariableTok{Y3}\NormalTok{)}\OperatorTok{;}			\CommentTok{\% Calcolo l\textquotesingle{}antitrasformata}
 \end{Highlighting}
 \end{Shaded}
 
@@ -393,13 +448,20 @@ l\textquotesingle impulso corrisponde ad \texttt{1}, quindi
 moltiplicando per 1 il segnale \emph{Y(s)} non cambia; successivamente
 provvede MatLab ad \emph{antri trasformare} (sempre con impulse).
 
+\newpage
+
 \hypertarget{plot-dei-singoli-modi}{%
 \subsubsection{Plot dei singoli modi}\label{plot-dei-singoli-modi}}
 
 Possiamo quindi effettuare il plot dei singoli modi e dei segnali
 totali:
 
-\includegraphics{/Users/follen/Desktop/SistemiDinamici/TESINA/assets/image-20240106113047528.png}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/image-20240106113118575.png}
+    
+    
+\end{figure}
 
 \begin{quote}
 \begin{itemize}
@@ -434,8 +496,10 @@ totali:
 \end{itemize}
 \end{quote}
 
+
+
 \hypertarget{risposta-del-sistema-al-variare-dei-parametri}{%
-\subsubsection{Risposta del sistema al variare dei
+\subsection{Risposta del sistema al variare dei
 parametri}\label{risposta-del-sistema-al-variare-dei-parametri}}
 
 \hypertarget{risposta-al-variare-della-capacituxe0}{%
@@ -469,7 +533,12 @@ regime.
 
 Notiamo, però, che il \emph{valore} di regime resta invariato.
 
-\includegraphics{/Users/follen/Desktop/SistemiDinamici/TESINA/assets/image-20240106113124504.png}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\linewidth]{images/image-20240106113124504.png}
+    
+    
+\end{figure}
 
 \hypertarget{risposta-al-variare-dellinduttanza}{%
 \paragraph{Risposta al variare
@@ -479,7 +548,14 @@ Allo stesso modo possiamo far variare l\textquotesingle induttanza; ad
 ogni iterazione variamo di un valore maggiore, in modo da ottenere un
 risultato più "interessante":
 
-\includegraphics{/Users/follen/Desktop/SistemiDinamici/TESINA/assets/image-20240107210446106.png}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\linewidth]{images/image-20240107210446106.png}
+    
+    
+\end{figure}
+
+\newpage
 
 \hypertarget{risposta-al-variare-della-resistenza}{%
 \paragraph{Risposta al variare della
@@ -489,8 +565,15 @@ Se la resistenza della condotta 1 aumenta, allora la pressione sul tank
 1 aumenta, perchè il liquido avrà maggiore difficoltà a spostarsi dal
 tank 1 al tank 2, infatti:
 
-\includegraphics{/Users/follen/Desktop/SistemiDinamici/TESINA/assets/image-20240107210512401.png}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\linewidth]{images/image-20240107210512401.png}
+    
+    
+\end{figure}
 
+\newpage
+\section{Risposta in frequenza}
 \hypertarget{diagrammi-di-bode}{%
 \subsection{Diagrammi di Bode}\label{diagrammi-di-bode}}
 
@@ -498,7 +581,12 @@ Possiamo effettuare un\textquotesingle analisi anche dal punto di vista
 della frequenza, andando a tracciare i \textbf{diagrammi di Bode}, sia
 dei moduli che delle fasi:
 
-\includegraphics{/Users/follen/Desktop/SistemiDinamici/TESINA/assets/image-20240107211127030.png}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.75\linewidth]{images/image-20240118150144374.png}
+    
+    
+\end{figure}
 
 I diagrammi di Bode sono in grado di darci molte informazioni sul
 sistema in esame; possiamo ad esempio vedere che tutte le frequenze
@@ -521,8 +609,10 @@ cambiati, a seconda dei valori letti sui diagrammi di Bode:
 
 \[y(t) = X \cdot |G(j\omega_{0})|_{dB} \ \cdot sin(\omega_{0} \cdot t \ + \angle{G(j\omega_{0})})\]
 
+\newpage
+
 \hypertarget{lettura-del-diagramma-dei-moduli}{%
-\subsubsection{Lettura del diagramma dei
+\subsection{Lettura del diagramma dei
 moduli}\label{lettura-del-diagramma-dei-moduli}}
 
 Di conseguenza, se sul diagramma dei moduli vedremo un valore positivo
@@ -542,7 +632,7 @@ convertiamo nuovamente in valore naturale, seguendo la formula:
 \[x_{dB} = 20 \cdot log_{10}(x_{0}) \Longrightarrow \ x_{0} = 10^{\frac{x_{dB}}{20}}\]
 
 \hypertarget{lettura-del-diagramma-delle-fasi}{%
-\subsubsection{Lettura del diagramma delle
+\subsection{Lettura del diagramma delle
 fasi}\label{lettura-del-diagramma-delle-fasi}}
 
 Il diagramma delle fasi ci dice se la fase della sinusoide in uscita è
@@ -555,13 +645,18 @@ entrata, ovvero se, in corrispondenza di quella determinata frequenza,
 il diagramma delle fasi riporta come valore \texttt{0}.
 
 \hypertarget{uscita-steady-state}{%
-\subsubsection{Uscita "Steady State"}\label{uscita-steady-state}}
+\subsection{Uscita "Steady State"}\label{uscita-steady-state}}
 
 Possiamo quindi trovare l\textquotesingle uscita \textbf{Steady State},
 ovvero la risposta del sistema dopo che il \emph{transitorio} si è
 esaurito, e l\textquotesingle uscita \textbf{è a regime}.
 
-\includegraphics{/Users/follen/Desktop/SistemiDinamici/TESINA/assets/image-20240107212750287.png}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\linewidth]{images/image-20240107212750287.png}
+    
+    
+\end{figure}
 
 In questo esempio possiamo vedere due tipi di output, che vengono
 calcolati a seconda dell\textquotesingle input. In blu osserviamo
@@ -584,6 +679,9 @@ segnale di output è la somma di 3 contributi.
 L\textquotesingle intervallo di frequenze (banda) scelto è lo stesso per
 entrambi i segnali, proprio per evidenziare le differenze di frequenza e
 di fase.
+
+\vspace*{\fill}
+
 
 \hypertarget{richieste}{%
 \subsection{Richieste}\label{richieste}}
