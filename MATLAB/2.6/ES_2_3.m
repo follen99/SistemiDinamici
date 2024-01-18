@@ -7,7 +7,7 @@ printsys(num, den, 's');
 
 [r, p, k] = residue(num, den);
 z = zeros(num);
-r
-p
+r'
+p'
 
-printsys(r,p)
+printsys(r',den,'s')

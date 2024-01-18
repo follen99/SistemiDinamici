@@ -1,54 +1,89 @@
 # Sistemi Dinamici
-Repository dedicata all'esame di sistemi dinamici
+![SchemaDarkModeNoBG](assets/SchemaDarkModeNoBG.png)
+
+
+
+![CircuitoEquivalenteRichDark.drawio](assets/CircuitoEquivalenteRichDark.drawio.png)
+
+Questa repository è dedicata all'esame di Sistemi Dinamici ed i files sono organizzati come segue:
+
+- **1. Trasformata di Laplace**: vi sono contenuti tutti gli appunti delle lezioni sulla trasformata di Laplace, compresi i teoremi e le proprietà.
+
+- **2. Modellistica**: vi sono contenuti tutti gli appunti separati per tipo di sistema:
+
+  - Sistemi elettrici
+  - Sistemi meccanici
+  - Sistemi idraulici
+  - Sistemi termici
+
+  Per ogni tipo di sistema è presente un file riassuntivo di tutti i sistemi visti a lezione, compresi di risposta nel tempo ed in frequenza, oltre che con rappresentazione nello spazio di stato, funzione di trasferimento e diagramma a blocchi.
+
+- **3. Risposta nel tempo**: vi sono contenuti tutti gli appunti delle lezioni su questo argomento, oltre che ad una raccolta di esercizi.
+
+- **4. Risposta in frequenza:** vi sono contenuti tutti gli appunti delle lezioni su questo argomento, oltre che ad una raccolta di esercizi e di esercitazioni fatte a lezione.
+
+- **Esercizi:** In questa cartella è contenuto il file più importante di questa repository: `Cheatheet - Sistemi Dinamici.pdf`, in cui sono contenute tutte le nozioni più importanti di questo esame. Se conosci questo file, conosci l'esame.
+
+- **MATLAB:** in questa cartella ci sono la maggior parte dei sistemi visti a lezione analizzati in MatLab, sia in frequenza che in tempo.
+
+- **Risorse**: in questa cartella è presente un altro file molto utile: `Bode-schema.png` dove sono riportati tutti gli andamenti possibili dei diagrammi di Bode.
+
+- **Simulazioni Esami:** in questa cartella ci sono diverse prove di esame svolte.
+
+- **TESINA**: in questa cartella sono presenti tutti i files della tesina.
+
+*Buona fortuna e buono studio.*
 
 ### Elenco delle possibili domande - Esame orale 2024
 
-- [x] Rappresentazione dei numeri complessi nel piano (parte reale e parte immaginaria, modulo e fase)
-- [x] Disegno di un seno in funzione dell’angolo e in funzione del tempo
-- [x] Disegno di un coseno in funzione dell’angolo e in funzione del tempo
-- [x] Disegno della somma di un seno e un coseno in funzione del tempo
-- [x] Teorema di Eulero
-- [x] Teorema della derivazione reale **[IMPO]**
-- [x] Teorema del valore finale **[IMPO]**
-- [x] Teorema del valore iniziale **[IMPO]**
-- [x] Teorema dell’integrazione reale **[IMPO]**
-- [x] Teorema della derivazione complessa
-- [x] Trasformata della funzione traslata nel tempo
-- [x] Trasformata di Laplace dell’esponenziale
-- [x] Trasformata di Laplace del gradino
-- [x] Trasformata di Laplace della rampa
+Usa questa lista per ripetere prima dell'esame orale!
+
+- [ ] Rappresentazione dei numeri complessi nel piano (parte reale e parte immaginaria, modulo e fase)
+- [ ] Disegno di un seno in funzione dell’angolo e in funzione del tempo
+- [ ] Disegno di un coseno in funzione dell’angolo e in funzione del tempo
+- [ ] Disegno della somma di un seno e un coseno in funzione del tempo
+- [ ] Teorema di Eulero
+- [ ] Teorema della derivazione reale **[IMPO]**
+- [ ] Teorema del valore finale **[IMPO]**
+- [ ] Teorema del valore iniziale **[IMPO]**
+- [ ] Teorema dell’integrazione reale **[IMPO]**
+- [ ] Teorema della derivazione complessa
+- [ ] Trasformata della funzione traslata nel tempo
+- [ ] Trasformata di Laplace dell’esponenziale
+- [ ] Trasformata di Laplace del gradino
+- [ ] Trasformata di Laplace della rampa
 - [ ] Trasformata di Laplace dell’impulso
-- [x] Trasformata di Laplace del seno
-- [x] Trasformata di Laplace del coseno
-- [x] Scomposizione in fratti semplici
-- [x] Risoluzione di equazioni differenziali con la trasformata di Laplace
-- [x] Modello di circuito RC (funzione di trasferimento, schema a blocchi, spazio di stato)
+- [ ] Trasformata di Laplace del seno
+- [ ] Trasformata di Laplace del coseno
+- [ ] Scomposizione in fratti semplici
+- [ ] Risoluzione di equazioni differenziali con la trasformata di Laplace
+- [ ] Modello di circuito RC (funzione di trasferimento, schema a blocchi, spazio di stato)
 - [ ] Modello di circuito RL (funzione di trasferimento, schema a blocchi, spazio di stato)
-- [x] Modello di circuito RLC (funzione di trasferimento, schema a blocchi, spazio di stato)
-- [x] Modello di circuito doppio RC in cascata (funzione di trasferimento, schema a blocchi, spazio di stato) **ELEMENTI IN CASCATA**
-- [x] Modello controllore proporzionale (invertente e non invertente) con amplificatore operazionale
-- [x] Modello controllore integrale con amplificatore operazionale
-- [x] Modello controllore proporzionale-integrale con amplificatore operazionale
-- [x] Modello di sistema massa-smorzatore (funzione di trasferimento, schema a blocchi, spazio di stato)
-- [x] Modello di sistema massa-molla (funzione di trasferimento, schema a blocchi, spazio di stato)
-- [x] Modello di sistema massa-molla-smorzatore (funzione di trasferimento, schema a blocchi, spazio di stato)
+- [ ] Modello di circuito RLC (funzione di trasferimento, schema a blocchi, spazio di stato)
+- [ ] Modello di circuito doppio RC in cascata (funzione di trasferimento, schema a blocchi, spazio di stato) **ELEMENTI IN CASCATA**
+- [ ] Modello controllore proporzionale (invertente e non invertente) con amplificatore operazionale
+- [ ] Modello controllore integrale con amplificatore operazionale
+- [ ] Modello controllore proporzionale-integrale con amplificatore operazionale
+- [ ] Modello di sistema massa-smorzatore (funzione di trasferimento, schema a blocchi, spazio di stato)
+- [ ] Modello di sistema massa-molla (funzione di trasferimento, schema a blocchi, spazio di stato)
+- [ ] Modello di sistema massa-molla-smorzatore (funzione di trasferimento, schema a blocchi, spazio di stato)
 - [ ] Modello di sistema con due masse accoppiate (funzione di trasferimento, schema a blocchi, spazio di stato) **VISTO MA NON APPROFONDITO**
-- [x] Modelli serbatoi idraulici comunicanti (funzione di trasferimento, schema a blocchi, spazio di stato)
-- [x] Modelli termici stanza-radiatore (funzione di trasferimento, schema a blocchi, spazio di stato)
-- [x] Linearizzazione
-- [x] Ricavare la funzione di trasferimento dalla rappresentazione nello spazio di stato
-- [x] Stabilità di sistemi dinamici lineari tempo-invarianti: relazione tra stabilità, asintotica stabilità, posizione di poli nel piano complesso e risposta impulsiva.
-- [x] Risposta forzata (transitoria e di regime) al gradino per sistemi del primo ordine
-- [x] Risposta forzata (transitoria e di regime) alla rampa per sistemi del primo ordine
-- [x] Risposta forzata (transitoria e di regime) all’impulso per sistemi del primo ordine
-- [x] Risposta forzata (transitoria e di regime) al gradino per sistemi del secondo ordine al variare del coefficiente di smorzamento
-- [x] Specifiche della risposta transitoria per sistemi del secondo ordine: tempo di salita, tempo di picco, massima sovraelongazione, tempo di assestamento.
-- [x] Risposta al gradino per sistemi di ordine superiore al secondo con poli distinti.
+- [ ] Modelli serbatoi idraulici comunicanti (funzione di trasferimento, schema a blocchi, spazio di stato)
+- [ ] Modelli termici stanza-radiatore (funzione di trasferimento, schema a blocchi, spazio di stato)
+- [ ] Linearizzazione
+- [ ] Ricavare la funzione di trasferimento dalla rappresentazione nello spazio di stato
+- [ ] Stabilità di sistemi dinamici lineari tempo-invarianti: relazione tra stabilità, asintotica stabilità, posizione di poli nel piano complesso e risposta impulsiva.
+- [ ] Risposta forzata (transitoria e di regime) al gradino per sistemi del primo ordine
+- [ ] Risposta forzata (transitoria e di regime) alla rampa per sistemi del primo ordine
+- [ ] Risposta forzata (transitoria e di regime) all’impulso per sistemi del primo ordine
+- [ ] Risposta forzata (transitoria e di regime) al gradino per sistemi del secondo ordine al variare del coefficiente di smorzamento
+- [ ] Specifiche della risposta transitoria per sistemi del secondo ordine: tempo di salita, tempo di picco, massima sovraelongazione, tempo di assestamento.
+- [ ] Risposta al gradino per sistemi di ordine superiore al secondo con poli distinti.
 - [ ] Evoluzione libera ed evoluzione forzata **DA FARE** lezione 19
-- [x] Risposta in frequenza **dimostrazione uscita steady state IMPO**
-- [x] Diagrammi di Bode di fattori integrali e derivativi
-- [x] Diagrammi di Bode di fattori del primo ordine, diagrammi asintotici ed esatti
-- [x] Diagrammi di Bode di fattori qua dratici, diagrammi asintotici ed esatti (pulsazione di risonanza e picco di risonanza)
+- [ ] Risposta in frequenza **dimostrazione uscita steady state IMPO**
+- [ ] Diagrammi di Bode di fattori integrali e derivativi
+- [ ] Diagrammi di Bode di fattori del primo ordine, diagrammi asintotici ed esatti
+- [ ] Diagrammi di Bode di fattori qua dratici, diagrammi asintotici ed esatti (pulsazione di risonanza e picco di risonanza)
 
 ## Tabella di marcia
 

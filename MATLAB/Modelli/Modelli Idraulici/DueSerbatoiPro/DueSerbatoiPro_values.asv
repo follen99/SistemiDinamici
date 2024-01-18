@@ -1,0 +1,20 @@
+
+% La corrente che viene riversata nei due serbatoi
+Q1 = 1;
+Q2 = 1;
+
+% La capacità di ogni serbatoio
+C1 = 1;
+C2 = 100;
+
+% La resistenza delle condotte che collegano i serbatoi
+R1 = 1;
+R2 = 1;
+
+% La pressione atmosferica alla base. Se P2>>Pa allora Pa = 0
+Pa = 0;
+
+% Densità volumetrica
+ro = 1;
+
+%

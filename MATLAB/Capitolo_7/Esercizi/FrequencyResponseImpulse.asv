@@ -1,0 +1,14 @@
+% è possibile ottenere la risposta a regime con un "trucchetto": sfruttiamo
+% il fatto che la LT di un impulso è 1, quindi:
+R = 470;
+C = 1
+num = [0 1];
+den = [R*C 1];
+
+G = tf(num, den)
+sin = tf(130, [1 0 130^2])
+
+Y = G*sin           % moltiplico nel dominio di laplace funzione di trasferimento ed input
+t = 0:0.001:100;
+impulse(Y,t);
+xlim([10,10.5])

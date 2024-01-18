@@ -9,4 +9,9 @@ C = [1 0; 0 1];
 D = [0 0; 0 0];
 
 sys = ss(A, B, C, D);
-step(sys);
+%step(sys);
+
+% Adesso definisco un asse del tempo personalizzato
+t = 0:0.1:10;
+sys = ss(A, B, C, D);
+step(sys, t);           %ATTENZIONE! l'asse del tempo è un argomento di step() non di ss()!

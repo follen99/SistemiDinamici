@@ -1,0 +1,18 @@
+% in questo esempio è possibile vedere la risposta nel tempo ed in
+% frequenza di un circuito RC
+% le costanti sono R - Resistenza e C - Capacita'
+clear; clc; close all;
+R = 470;
+C = 1*10^-3;
+
+num = [0 1];
+den = [R*C 1];
+t = 0:0.01:100;
+
+sys1 = tf(num, den);
+
+% trovo la risposta ad un gradino unitario
+[y, t, x] = step(sys1, t);
+
+plot(t, y);         % disegno l'andamento della risposta nel tempo
+xlim([0,5]);        % visualizzo solo l'intervallo di tempo da 0 a 5

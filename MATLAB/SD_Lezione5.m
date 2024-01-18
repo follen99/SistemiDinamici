@@ -1,12 +1,17 @@
+clear
+clc
+
 % andiamo a definire dei polinomi
 
-B = [3 -1] % polinomio al nominatore
+B = [0 3 -1]; % polinomio al nominatore
 
-A = [1 3 2] % polinomio al denominatore
+A = [1 3 2]; % polinomio al denominatore
 
 length(A) % stampa la lunghezza del vettore
 
-[r, p, k] = residue(B, A)     % ha come output [r, p, k]
+[r, p, k] = residue(B, A);     % ha come output [r, p, k]
+
+printsys(B, A);
 
 p' %serve per fare il trasposto
 
