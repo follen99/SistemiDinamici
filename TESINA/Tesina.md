@@ -260,7 +260,7 @@ Se la resistenza della condotta 1 aumenta, allora la pressione sul tank 1 aument
 
 Possiamo effettuare un'analisi anche dal punto di vista della frequenza, andando a tracciare i **diagrammi di Bode**, sia dei moduli che delle fasi:
 
-![image-20240107211127030](./assets/image-20240107211127030.png)
+![image-20240118150144374](assets/image-20240118150144374.png)
 
 I diagrammi di Bode sono in grado di darci molte informazioni sul sistema in esame; possiamo ad esempio vedere che tutte le frequenze inferiori alla frequenza 
 $$

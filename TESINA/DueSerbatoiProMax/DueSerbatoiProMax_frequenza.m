@@ -42,37 +42,38 @@ mag_phase_w = cell(1,3);        % pre-alloco della memoria per posizionare i val
 
 
 figure('Name',"Modulo e fase dai diversi input")
-subplot(2,2,1)
+subplot(2,1,1)
 [mag, phase, w] = bode(sys, w);
 magdB(:,:,1) = 20*log10(mag);
 semilogx(w, magdB);
 title("Diagramma dei moduli dai diversi input")
 grid on
 
-subplot(2,2,3)
+subplot(2,1,2)
 phase2d(:,:,1) = phase;
 semilogx(w, phase2d);
 title("Diagramma delle fasi dai diversi input")
 grid on
 
 
-% % metodo "a manella"
-% arr1 = magdB(1,:);
-% arr2 = magdB(2,:);
-% arr3 = magdB(3,:);
-% bode_summ = arr1+arr2+arr3;
+%% !! ATTENZIONE !!
+% lascio il codice perchè potrebbe essere utile, ma questa parte è INUTILE:
+% non ha senso sommare i diagrammi di bode, questo perchè ogni funzione di
+% trasferimento (a cui è legato il diagramma di bode) è una relazione tra
+% L'UNICA USCITA ed una delle entrate. Di conseguenza è inutile sommare i
+% diagrammi di Bode. Nella prima versione della tesina ho sbagliato.
 
-magdB_sum = sum(magdB, [1 3]);      % sommo membro a membro i valori della matrice
-subplot(2,2,2)
-semilogx(w, magdB_sum)
-title("Diagramma dei moduli totale")
-grid on
-
-phase_sum = sum(phase2d, [1 3]);
-subplot(2,2,4)
-semilogx(w, phase_sum)
-title("Diagramma delle fasi totale")
-grid on
+% magdB_sum = sum(magdB, [1 3]);      % sommo membro a membro i valori della matrice
+% subplot(2,2,2)
+% semilogx(w, magdB_sum)
+% title("Diagramma dei moduli totale")
+% grid on
+% 
+% phase_sum = sum(phase2d, [1 3]);
+% subplot(2,2,4)
+% semilogx(w, phase_sum)
+% title("Diagramma delle fasi totale")
+% grid on
 
 % ##### TROVO LA RISPOSTA STEADY STATE SINUSOIDALE #####
 t = linspace(1, 10000, 1000);
